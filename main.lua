@@ -176,7 +176,7 @@ RunService.RenderStepped:Connect(function()
             for _, BodyPart in next, BodyParts do
 		if Settings.HitDebounce > 0 then
 			local Current = os.clock()
-                	if Current - LastHit >= math.random(Settings.HitDebounce) + math.random() then
+                	if Current - LastHit >= Settings.HitDebounce + math.random() then
                     		coroutine.wrap(Touch)(Tool.Handle, ClosestCharacter[BodyPart])
                     		LastHit = Current
                 	end
