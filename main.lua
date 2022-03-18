@@ -1,4 +1,4 @@
-local Settings = {
+local Settings = shared.Settings or {
     CircleReach = true,
     DamageAmp = false,
     AutoClicker = true,
@@ -174,11 +174,15 @@ RunService.RenderStepped:Connect(function()
 
         if Settings.CircleReach and ClosestPlayer and ClosestCharacter and Distance <= Settings.CircleDistance and Tool and Tool.Parent.Name ~= "Backpack" and Tool:FindFirstChild("Handle") then
             for _, BodyPart in next, BodyParts do
-                local Current = os.clock()
-                if Current - LastHit >= Random:NextNumber(1, Settings.HitDebounce) then
-                    coroutine.wrap(Touch)(Tool.Handle, ClosestCharacter[BodyPart])
-                    LastHit = Current
-                end
+		if Settings.HitDebounce then
+			local Current = os.clock()
+                	if Current - LastHit >= Random:NextNumber(0, Settings.HitDebounce) then
+                    		coroutine.wrap(Touch)(Tool.Handle, ClosestCharacter[BodyPart])
+                    		LastHit = Current
+                	end
+		else
+			coroutine.wrap(Touch)(Tool.Handle, ClosestCharacter[BodyPart])
+		end
             end
         end
     end
