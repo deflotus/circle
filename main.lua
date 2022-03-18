@@ -174,9 +174,9 @@ RunService.RenderStepped:Connect(function()
 
         if Settings.CircleReach and ClosestPlayer and ClosestCharacter and Distance <= Settings.CircleDistance and Tool and Tool.Parent.Name ~= "Backpack" and Tool:FindFirstChild("Handle") then
             for _, BodyPart in next, BodyParts do
-		if Settings.HitDebounce then
+		if Settings.HitDebounce > 0 then
 			local Current = os.clock()
-                	if Current - LastHit >= Random:NextNumber(0, Settings.HitDebounce) then
+                	if Current - LastHit >= math.random(Settings.HitDebounce) + math.random() then
                     		coroutine.wrap(Touch)(Tool.Handle, ClosestCharacter[BodyPart])
                     		LastHit = Current
                 	end
