@@ -4,7 +4,6 @@ local Settings = shared.Settings or {
     AutoClicker = true,
     Visualizer = true,
     CircleDistance = 10,
-    HitDebounce = 0,
 
     KeyBinds = {
         CircleReachToggle = "Z",
@@ -108,13 +107,7 @@ local function GetClosestPlayer()
 end
 
 local function Touch(TouchWith, Touch)
-    local Repeat = 3
-
-    if Settings.SafeMode then
-        Repeat = 10
-    end
-
-    for _ = 1, Repeat do
+    for _ = 1, 3 do
         firetouchinterest(TouchWith, Touch, 0)
         task.wait()
         firetouchinterest(TouchWith, Touch, 1)
@@ -174,12 +167,12 @@ RunService.RenderStepped:Connect(function()
 
         if Settings.CircleReach and ClosestPlayer and ClosestCharacter and Distance <= Settings.CircleDistance and Tool and Tool.Parent.Name ~= "Backpack" and Tool:FindFirstChild("Handle") then
             for _, BodyPart in next, BodyParts do
-		if Settings.HitDebounce > 0 then
+		if Settings.SafeMode > 0 then
 			local Current = os.clock()
-                	if Current - LastHit >= Settings.HitDebounce + math.random() then
-                    		coroutine.wrap(Touch)(Tool.Handle, ClosestCharacter[BodyPart])
-                    		LastHit = Current
-                	end
+            if Current - LastHit >= Settings.HitDebounce + math.random() then
+                coroutine.wrap(Touch)(Tool.Handle, ClosestCharacter[BodyPart])
+                LastHit = Current
+            end
 		else
 			coroutine.wrap(Touch)(Tool.Handle, ClosestCharacter[BodyPart])
 		end
