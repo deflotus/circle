@@ -24,7 +24,7 @@ local DrawingApi = loadstring(game:HttpGet("https://raw.githubusercontent.com/Bl
 local Random = Random.new()
 
 local NotificationGui = Instance.new("ScreenGui", game:GetService("CoreGui"))
-NotificationGui.Name = "penis music"
+NotificationGui.Name = "EEEEEEEE"
 syn.protect_gui(NotificationGui)
 
 local NotificationFrame = Instance.new("Frame", NotificationGui)
