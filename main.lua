@@ -1,14 +1,14 @@
 local Settings = shared.Settings or {
     CircleReach = true,
-    DamageAmp = false,
+    SafeMode = false,
     AutoClicker = true,
     Visualizer = true,
     CircleDistance = 10,
-    HitDebounce = 0.3,
+    HitDebounce = 0,
 
     KeyBinds = {
         CircleReachToggle = "Z",
-        DamageAmpToggle = "X",
+        SafeModeToggle = "X",
         AutoClickerToggle = "C",
         VisualizerToggle = "V",
         IncreaseCircleDistance = "E",
@@ -110,7 +110,7 @@ end
 local function Touch(TouchWith, Touch)
     local Repeat = 3
 
-    if Settings.DamageAmp then
+    if Settings.SafeMode then
         Repeat = 10
     end
 
@@ -133,9 +133,9 @@ UserInputService.InputBegan:Connect(function(Input, GameProcessed)
         if Input.KeyCode == Enum.KeyCode[Settings.KeyBinds.CircleReachToggle] then
             Settings.CircleReach = not Settings.CircleReach
             Notification("circle reach set to: " .. tostring(Settings.CircleReach), 2)
-        elseif Input.KeyCode == Enum.KeyCode[Settings.KeyBinds.DamageAmpToggle] then
-            Settings.DamageAmp = not Settings.DamageAmp
-            Notification("damage amp set to: " .. tostring(Settings.DamageAmp), 2)
+        elseif Input.KeyCode == Enum.KeyCode[Settings.KeyBinds.SafeModeToggle] then
+            Settings.SafeMode = not Settings.SafeMode
+            Notification("safe mode set to: " .. tostring(Settings.SafeMode), 2)
         elseif Input.KeyCode == Enum.KeyCode[Settings.KeyBinds.AutoClickerToggle] then
             Settings.AutoClicker = not Settings.AutoClicker
             Notification("autoclicker set to: " .. tostring(Settings.AutoClicker), 2)
